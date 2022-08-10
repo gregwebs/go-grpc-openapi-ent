@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package todo.v1;
+
+import "google/type/datetime.proto";
+/*
+import "google/protobuf/duration.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+import "google/rpc/status.proto";
+*/
+
+// HTTP annotations
+import "google/api/annotations.proto";
+
+service todoService {
+  rpc GetUser(GetUserRequest) returns (GetUserResponse) {
+    option (google.api.http) = {
+      get: "/v1/user/{id}"
+    };
+  }
+  rpc ListTaskUsers(ListTaskUsersRequest) returns (ListTaskUsersResponse) {
+    option (google.api.http) = {
+      get: "/v1/task/{id}/users"
+    };
+  }
+}
+
+message User {
+  uint32 id = 1;
+  string name = 2;
+  string email = 3;
+  // google.type.DateTime created_at = 3;
+}
+
+message Task {
+  uint32 id = 1;
+  string name = 2;
+  string description = 3;
+  // google.type.DateTime created_at = 3;
+  // google.type.DateTime started_at = 4;
+  // google.type.DateTime finished_at = 5;
+}
+
+message GetUserRequest {
+  uint32 id = 1;
+  string email = 2;
+}
+
+message GetUserResponse {
+  User user = 1;
+}
+
+message SearchTaskRequest {
+  string name = 1;
+}
+
+message SearchTaskResponse {
+  repeated Task tasks = 1;
+}
+
+message ListTaskUsersRequest {
+  uint32 id = 1;
+}
+
+message ListTaskUsersResponse {
+  Task task = 1;
+  repeated User users = 2;
+}

@@ -1,0 +1,17 @@
+# Editors
+/.vscode
+
+# Code generation
+/gen
+/ent/*
+!/ent/schema
+!/ent/migrations
+
+# Executables
+/cmd/migrate/migrate
+/cmd/seed/seed
+/cmd/client/client
+/server/server
+
+# Remove this and lock down your deps
+Brewfile.lock.json

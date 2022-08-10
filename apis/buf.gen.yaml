@@ -1,0 +1,23 @@
+version: v1
+plugins:
+  - name: go
+    out: ../gen/proto/go
+    opt: paths=source_relative
+  - name: go-grpc
+    out: ../gen/proto/go
+    opt:
+      - paths=source_relative
+      - require_unimplemented_servers=false
+  - name: grpc-gateway
+    out: ../gen/proto/go
+    opt:
+      - paths=source_relative
+      - generate_unbound_methods=true
+  - name: openapiv2
+    out: ../gen/openapiv2
+managed:
+  enabled: true
+  go_package_prefix:
+    default: github.com/gregwebs/go-grpc-openapi-ent/gen/proto/go
+    except:
+      - buf.build/googleapis/googleapis
