@@ -16,6 +16,7 @@ build: generate
 
 lint:
 	golangci-lint run
+	staticcheck ./...
 
 release:
 	just buf breaking --against ".git#branch=main,subdir=."
@@ -56,6 +57,7 @@ setup-db:
 
 setup-go:
 	@# Doesn't seem to work from the gen directory
+	go install honnef.co/go/tools/cmd/staticcheck@latest
 	go install entgo.io/ent/cmd/ent@latest
 	cd gen && go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
 	cd gen && go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest

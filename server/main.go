@@ -14,7 +14,6 @@ import (
 	// and the gen/proto/go output location in the buf.gen.yaml.
 	ent "github.com/gregwebs/go-grpc-openapi-ent/ent"
 	apiv1 "github.com/gregwebs/go-grpc-openapi-ent/gen/proto/go/todo/v1"
-	gw "github.com/gregwebs/go-grpc-openapi-ent/gen/proto/go/todo/v1"
 	api "github.com/gregwebs/go-grpc-openapi-ent/server/api"
 	dal "github.com/gregwebs/go-grpc-openapi-ent/server/dal"
 
@@ -74,13 +73,20 @@ func runHTTP() error {
 	}
 
 	opts := []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
-	err := gw.RegisterTodoServiceHandlerFromEndpoint(ctx, mux, *grpcEndpoint, opts)
+	err := apiv1.RegisterTodoServiceHandlerFromEndpoint(ctx, mux, *grpcEndpoint, opts)
 	if err != nil {
 		return err
 	}
 	listenOn := ":8081"
 	log.Println("Listening for HTTP on", listenOn)
-	return http.ListenAndServe(listenOn, mux)
+	//nolint:exhaustruct
+	srv := &http.Server{
+		ReadTimeout:  5 * time.Second,
+		WriteTimeout: 10 * time.Second,
+		Addr:         listenOn,
+		Handler:      mux,
+	}
+	return srv.ListenAndServe()
 }
 
 func runGRPC(db *ent.Client) error {

@@ -1,0 +1,29 @@
+linters:
+  # Enable specific linter
+  # https://golangci-lint.run/usage/linters/#enabled-by-default-linters
+  enable:
+    - exhaustruct
+    - gosec
+    - bodyclose
+    - containedctx
+    - contextcheck
+    - durationcheck
+    - errorlint
+    - exhaustive
+    - exportloopref
+    - goerr113
+    - ireturn
+    - misspell
+    - nilerr
+    - noctx
+    - prealloc
+    # - wrapcheck
+
+skip-dirs:
+  - gen
+
+# To avoid increased memory usage,
+# Add this to a file with:
+# // +build !codeanalysis
+build-tags:
+  - codeanalysis

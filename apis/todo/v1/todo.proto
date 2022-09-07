@@ -35,7 +35,6 @@ message User {
 
 message Task {
   uint32 id = 1;
-  string name = 2;
   string description = 3;
   // google.type.DateTime created_at = 3;
   // google.type.DateTime started_at = 4;

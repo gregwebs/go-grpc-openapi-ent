@@ -36,7 +36,7 @@ func run() error {
 		Id: 2,
 	})
 	if err != nil {
-		return fmt.Errorf("failed listing task user")
+		return fmt.Errorf("failed listing task user: %w", err)
 	}
 	for _, emp := range rspEmps.Users {
 		if _, err := svc.GetUser(ctx, &apiv1.GetUserRequest{

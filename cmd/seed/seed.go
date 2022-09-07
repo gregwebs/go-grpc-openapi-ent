@@ -24,7 +24,7 @@ func seed() error {
 		Password: "",
 	})
 	if err != nil {
-		return fmt.Errorf("Unable to connect to database: %w", err)
+		return fmt.Errorf("unable to connect to database: %w", err)
 	}
 	defer func() {
 		if err := db.Close(); err != nil {
